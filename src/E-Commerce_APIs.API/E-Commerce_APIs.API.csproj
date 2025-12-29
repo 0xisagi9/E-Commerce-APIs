@@ -18,4 +18,10 @@
     <ProjectReference Include="..\E-Commerce_APIs.Shared\E-Commerce_APIs.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Middleware\" />
+    <Folder Include="Filters\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>
