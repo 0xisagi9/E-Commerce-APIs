@@ -88,6 +88,46 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "E-Commerce_APIs.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/E-Commerce_APIs.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/E-Commerce_APIs.Application.dll": {}
+        }
+      },
+      "E-Commerce_APIs.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/E-Commerce_APIs.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/E-Commerce_APIs.Domain.dll": {}
+        }
+      },
+      "E-Commerce_APIs.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/E-Commerce_APIs.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/E-Commerce_APIs.Infrastructure.dll": {}
+        }
+      },
+      "E-Commerce_APIs.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/E-Commerce_APIs.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/E-Commerce_APIs.Shared.dll": {}
+        }
       }
     }
   },
@@ -439,10 +479,34 @@
         "swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "E-Commerce_APIs.Application/1.0.0": {
+      "type": "project",
+      "path": "../E-Commerce_APIs.Application/E-Commerce_APIs.Application.csproj",
+      "msbuildProject": "../E-Commerce_APIs.Application/E-Commerce_APIs.Application.csproj"
+    },
+    "E-Commerce_APIs.Domain/1.0.0": {
+      "type": "project",
+      "path": "../E-Commerce_APIs.Domain/E-Commerce_APIs.Domain.csproj",
+      "msbuildProject": "../E-Commerce_APIs.Domain/E-Commerce_APIs.Domain.csproj"
+    },
+    "E-Commerce_APIs.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../E-Commerce_APIs.Infrastructure/E-Commerce_APIs.Infrastructure.csproj",
+      "msbuildProject": "../E-Commerce_APIs.Infrastructure/E-Commerce_APIs.Infrastructure.csproj"
+    },
+    "E-Commerce_APIs.Shared/1.0.0": {
+      "type": "project",
+      "path": "../E-Commerce_APIs.Shared/E-Commerce_APIs.Shared.csproj",
+      "msbuildProject": "../E-Commerce_APIs.Shared/E-Commerce_APIs.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "E-Commerce_APIs.Application >= 1.0.0",
+      "E-Commerce_APIs.Domain >= 1.0.0",
+      "E-Commerce_APIs.Infrastructure >= 1.0.0",
+      "E-Commerce_APIs.Shared >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -477,7 +541,20 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\My-Data\\Backend Developer\\Projects\\E-Commerce_APIs\\src\\E-Commerce_APIs.Application\\E-Commerce_APIs.Application.csproj": {
+              "projectPath": "C:\\My-Data\\Backend Developer\\Projects\\E-Commerce_APIs\\src\\E-Commerce_APIs.Application\\E-Commerce_APIs.Application.csproj"
+            },
+            "C:\\My-Data\\Backend Developer\\Projects\\E-Commerce_APIs\\src\\E-Commerce_APIs.Domain\\E-Commerce_APIs.Domain.csproj": {
+              "projectPath": "C:\\My-Data\\Backend Developer\\Projects\\E-Commerce_APIs\\src\\E-Commerce_APIs.Domain\\E-Commerce_APIs.Domain.csproj"
+            },
+            "C:\\My-Data\\Backend Developer\\Projects\\E-Commerce_APIs\\src\\E-Commerce_APIs.Infrastructure\\E-Commerce_APIs.Infrastructure.csproj": {
+              "projectPath": "C:\\My-Data\\Backend Developer\\Projects\\E-Commerce_APIs\\src\\E-Commerce_APIs.Infrastructure\\E-Commerce_APIs.Infrastructure.csproj"
+            },
+            "C:\\My-Data\\Backend Developer\\Projects\\E-Commerce_APIs\\src\\E-Commerce_APIs.Shared\\E-Commerce_APIs.Shared.csproj": {
+              "projectPath": "C:\\My-Data\\Backend Developer\\Projects\\E-Commerce_APIs\\src\\E-Commerce_APIs.Shared\\E-Commerce_APIs.Shared.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
