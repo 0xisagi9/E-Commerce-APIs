@@ -1,1 +1,3 @@
 .vs/*
+src/*/appsettings.json
+src/*/appsettings.Development.json
