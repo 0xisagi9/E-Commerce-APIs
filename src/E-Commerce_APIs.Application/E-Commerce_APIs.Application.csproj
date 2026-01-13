@@ -1,19 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>E_Commerce_APIs.Application</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>E_Commerce_APIs.Application</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Behaviors\" />
-    <Folder Include="Mappings\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Queries\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="DTOs\" />
+		<Folder Include="Behaviors\" />
+		<Folder Include="Features\Category\" />
+		<Folder Include="Features\Brand\" />
+		<Folder Include="Features\Cart\" />
+		<Folder Include="Features\Review\" />
+		<Folder Include="Features\Payment\" />
+		<Folder Include="Features\Orders\" />
+		<Folder Include="Features\Users\Queries\" />
+		<Folder Include="Features\Vendor\" />
+		<Folder Include="Features\Product\" />
+		<Folder Include="Mappings\" />
+		<Folder Include="Exceptions\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="8.6.3" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\E-Commerce_APIs.Infrastructure\E-Commerce_APIs.Infrastructure.csproj" />
+	</ItemGroup>
 
 </Project>
