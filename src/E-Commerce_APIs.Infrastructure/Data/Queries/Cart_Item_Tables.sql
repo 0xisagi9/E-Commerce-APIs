@@ -1,0 +1,26 @@
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE Cart_Session (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  	creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    slug VARCHAR(255),
+    user_id UUID NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES "User"(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Cart_Item (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    quantity INT NOT NULL DEFAULT 1,
+    product_id INT NOT NULL,
+    cart_session_id INT NOT NULL,
+    vendor_offer_id INT NOT NULL,
+  	creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    slug VARCHAR(255),
+    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
+    FOREIGN KEY (cart_session_id) REFERENCES Cart_Session(id) ON DELETE CASCADE,
+    FOREIGN KEY (vendor_offer_id) REFERENCES Vendor_Offer(id) ON DELETE CASCADE,
+    CHECK (Quantity > 0),
+    UNIQUE (cart_session_id, vendor_offer_id)
+);
