@@ -1,0 +1,63 @@
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE "User" (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+	user_name VARCHAR(50) NOT NULL UNIQUE,
+	email VARCHAR(255) NOT NULL UNIQUE,
+	password_hash VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+	phone_number VARCHAR(20) UNIQUE,
+	is_verified BOOLEAN DEFAULT FALSE,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    slug VARCHAR(255) UNIQUE,
+	CHECK (
+  email ~* '^[A-Za-z0-9]+([._%+-][A-Za-z0-9]+)*@[A-Za-z0-9]+(-?[A-Za-z0-9]+)*(\.[A-Za-z]{2,})+$'
+));
+
+CREATE TABLE "Role"(
+  	id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	name VARCHAR(50) UNIQUE NOT NULL,
+	description TEXT DEFAULT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+)
+
+CREATE TABLE "User_Role"(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	user_id UUID NOT NULL,
+	role_id INT NOT NULL,
+	assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (user_id) REFERENCES "User"(id) ON DELETE CASCADE,
+	FOREIGN KEY (role_id) REFERENCES "Role"(id) ON DELETE CASCADE
+)
+
+CREATE TABLE "Refresh_Token" (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+    token TEXT UNIQUE NOT NULL,  
+    expires_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    revoked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip_address VARCHAR(45),
+    user_agent TEXT
+)
+
+CREATE TABLE "User_Address" (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    address VARCHAR(500) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    location VARCHAR(255),
+    mobile VARCHAR(20),
+    postal_code VARCHAR(20),
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    slug VARCHAR(255),
+    user_id UUID NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES "User"(id) ON DELETE CASCADE
+);
+
+

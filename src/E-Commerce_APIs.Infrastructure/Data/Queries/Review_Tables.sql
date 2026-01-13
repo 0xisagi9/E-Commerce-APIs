@@ -1,0 +1,24 @@
+CREATE TABLE Review_User_Status(
+	id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	status VARCHAR(250)
+);
+
+CREATE TABLE Review (
+	id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id UUID NOT NULL,
+    rate INT NOT NULL,
+    reported BOOLEAN DEFAULT FALSE,
+    order_item_id INT NOT NULL,
+    user_status_id INT NOT NULL,
+    comment TEXT,
+    creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    modified_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    slug VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES "User"(id) ON DELETE CASCADE,
+    FOREIGN KEY (order_item_id) REFERENCES Order_Item(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_status_id) REFERENCES Review_User_Status(id),
+    CHECK (Rate >= 1 AND Rate <= 5),
+    UNIQUE (user_id, order_item_id)
+);
