@@ -16,4 +16,5 @@ public partial class Auditlog
     public Guid? UserId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
+
 }

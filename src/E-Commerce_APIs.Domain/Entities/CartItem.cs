@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 namespace E_Commerce_APIs.Domain.Entities;
-
 public partial class CartItem
 {
     public int Id { get; set; }

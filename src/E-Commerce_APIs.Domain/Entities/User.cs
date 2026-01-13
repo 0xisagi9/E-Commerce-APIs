@@ -2,20 +2,25 @@
 using System.Collections.Generic;
 
 namespace E_Commerce_APIs.Domain.Entities;
-
 public partial class User
 {
     public Guid Id { get; set; }
+
+    public string UserName { get; set; } = null!;
+
+    public string Email { get; set; } = null!;
+
+    public string PasswordHash { get; set; } = null!;
 
     public string FirstName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;
 
-    public string Email { get; set; } = null!;
+    public string? PhoneNumber { get; set; }
 
-    public string HashPassword { get; set; } = null!;
+    public bool? IsVerified { get; set; }
 
-    public DateTime? CreationDate { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     public DateTime? ModifiedDate { get; set; }
 
@@ -31,7 +36,11 @@ public partial class User
 
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
+    public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
     public virtual ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
+
+    public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
 }

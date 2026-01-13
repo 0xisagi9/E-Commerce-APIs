@@ -34,4 +34,5 @@ public partial class OrderItem
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
     public virtual VendorOffer VendorOffer { get; set; } = null!;
+
 }

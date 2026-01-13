@@ -7,6 +7,10 @@ public partial class ReviewUserStatus
 {
     public int Id { get; set; }
 
+    public DateTime? CreationDate { get; set; }
+
+    public DateTime? ModifiedDate { get; set; }
+
     public string? Status { get; set; }
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();

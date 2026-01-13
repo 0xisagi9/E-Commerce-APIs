@@ -22,4 +22,5 @@ public partial class ProductImage
     public string? Slug { get; set; }
 
     public virtual Product Product { get; set; } = null!;
+
 }

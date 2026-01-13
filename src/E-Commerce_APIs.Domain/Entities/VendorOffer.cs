@@ -32,4 +32,5 @@ public partial class VendorOffer
     public virtual Product Product { get; set; } = null!;
 
     public virtual Vendor Vendor { get; set; } = null!;
+
 }

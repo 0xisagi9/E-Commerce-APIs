@@ -10,4 +10,5 @@ public partial class OrderStatus
     public string? Status { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+
 }

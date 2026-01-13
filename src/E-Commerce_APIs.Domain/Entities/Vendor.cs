@@ -28,4 +28,5 @@ public partial class Vendor
     public string? Slug { get; set; }
 
     public virtual ICollection<VendorOffer> VendorOffers { get; set; } = new List<VendorOffer>();
+
 }

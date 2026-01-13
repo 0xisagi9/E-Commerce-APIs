@@ -13,7 +13,9 @@ public partial class Inventory
 
     public int ReservedQuantity { get; set; }
 
-    public DateTime? LastUpdate { get; set; }
+    public DateTime? CreationDate { get; set; }
+
+    public DateTime? ModifiedDate { get; set; }
 
     public virtual VendorOffer VendorOffer { get; set; } = null!;
 }

@@ -19,5 +19,9 @@ public partial class OrderShippingAddress
 
     public string Mobile { get; set; } = null!;
 
+    public DateTime? CreationDate { get; set; }
+
+    public DateTime? ModifiedDate { get; set; }
+
     public virtual Order Order { get; set; } = null!;
 }
