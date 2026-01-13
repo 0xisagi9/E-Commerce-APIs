@@ -1,0 +1,12 @@
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\bin\Debug\net8.0\E-Commerce_APIs.Application.deps.json
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\bin\Debug\net8.0\E-Commerce_APIs.Application.dll
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\bin\Debug\net8.0\E-Commerce_APIs.Application.pdb
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commerce_APIs.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commerce_APIs.Application.AssemblyInfoInputs.cache
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commerce_APIs.Application.AssemblyInfo.cs
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commerce_APIs.Application.csproj.CoreCompileInputs.cache
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commerce_APIs.Application.sourcelink.json
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commerce_APIs.Application.dll
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\refint\E-Commerce_APIs.Application.dll
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commerce_APIs.Application.pdb
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\ref\E-Commerce_APIs.Application.dll
