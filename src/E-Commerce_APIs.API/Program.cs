@@ -1,11 +1,25 @@
+using AutoMapper;
 using E_Commerce_APIs.API.Configurations;
+using E_Commerce_APIs.Infrastructure.Persistence.Context;
+using E_Commerce_APIs.Infrastructure.Persistence.UnitOfWork;
+using E_Commerce_APIs.Infrastructure.Services;
+using E_Commerce_APIs.Shared.Interfaces;
+using E_Commerce_APIs.Shared.Settings;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Load environment-specific configuration
+// Load Environment-Specific configuration
 builder.Configuration
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -13,21 +27,29 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 
-// Register configuration sections
-builder.Services.Configure<SupabaseSettings>(builder.Configuration.GetSection("Supabase"));
-builder.Services.Configure<CorsSettings>(builder.Configuration.GetSection("Cors"));
-builder.Services.Configure<FeatureFlags>(builder.Configuration.GetSection("FeatureFlags"));
-builder.Services.Configure<RedisSettings>(builder.Configuration.GetSection("RedisCache"));
-builder.Services.Configure<RateLimitingSettings>(builder.Configuration.GetSection("RateLimiting"));
 
 
 
-// Add services to the container.
+
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();
+
+// Add Infrastructure layer (DbContext, Repositories, Unit of Work, JWT)
+builder.Services.AddInfrastructure(builder.Configuration);
+
+
+// Add MediatR and CQRS
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
+// Add AutoMapper
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
 
 var app = builder.Build();
@@ -39,8 +61,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
