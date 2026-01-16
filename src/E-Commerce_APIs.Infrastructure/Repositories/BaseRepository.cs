@@ -5,51 +5,39 @@ using System.Linq.Expressions;
 
 namespace E_Commerce_APIs.Infrastructure.Repositories;
 
-public class BaseRepository<T, Tkey> : IRepository<T, Tkey> where T : class
+public class BaseRepository<TEntity, Tkey> : IBaseRepository<TEntity, Tkey> where TEntity : class
 {
-    protected readonly AppDbContext _context;
-    protected readonly DbSet<T> _dbSet;
+    protected readonly DbContext _context;
+    protected readonly DbSet<TEntity> _dbSet;
 
-    public BaseRepository(AppDbContext context)
+    public BaseRepository(DbContext context)
     {
         _context = context;
-        _dbSet = context.Set<T>();
+        _dbSet = context.Set<TEntity>();
     }
-    public virtual async Task AddAsync(T entity)
+
+
+    public virtual async Task<TEntity> AddAsync(TEntity entity)
     {
         await _dbSet.AddAsync(entity);
+        return entity;
     }
-    public virtual void Update(T entity)
+    public virtual Task UpdateAsync(TEntity entity)
     {
         _dbSet.Update(entity);
+        return Task.CompletedTask;
     }
-    public virtual void Remove(T entity)
+    public virtual Task DeleteAsync(TEntity entity)
     {
         _dbSet.Remove(entity);
+        return Task.CompletedTask;
     }
 
-    public virtual async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
-    {
-        return await _dbSet.AnyAsync(predicate);
-    }
-
-    public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
-    {
-        return await _dbSet.Where(predicate).ToListAsync();
-    }
-
-    public virtual async Task<IEnumerable<T>> GetAllAsync()
-    {
-        return await _dbSet.ToListAsync();
-    }
-
-    public virtual async Task<T?> GetByIdAsync(Tkey id)
-    {
-        return await _dbSet.FindAsync(id);
-    }
-
-    public Task<T?> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
-    {
-        throw new NotImplementedException();
-    }
+    public virtual async Task<TEntity?> GetByIdAsync(Tkey id) => await _dbSet.FindAsync(id);
+    public virtual async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate) => await _dbSet.AnyAsync(predicate);
+    public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate) => await _dbSet.Where(predicate).ToListAsync();
+    public virtual async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate) => await _dbSet.FirstOrDefaultAsync(predicate);
+    public virtual async Task<IEnumerable<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
+    public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>>? predicate = null) => predicate == null
+        ? await _dbSet.CountAsync() : await _dbSet.CountAsync(predicate);
 }
