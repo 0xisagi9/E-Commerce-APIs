@@ -2,14 +2,15 @@
 
 namespace E_Commerce_APIs.Shared.Interfaces;
 
-public interface IRepository<T, TKey> where T : class
+public interface IBaseRepository<TEntity, TKey> where TEntity : class
 {
-    Task<T?> GetByIdAsync(TKey id);
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
-    Task<T?> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
-    Task AddAsync(T entity);
-    void Update(T entity);
-    void Remove(T entity);
-    Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
+    Task<TEntity?> GetByIdAsync(TKey id);
+    Task<IEnumerable<TEntity>> GetAllAsync();
+    Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+    Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+    Task<TEntity> AddAsync(TEntity entity);
+    Task UpdateAsync(TEntity entity);
+    Task DeleteAsync(TEntity entity);
+    Task<int> CountAsync(Expression<Func<TEntity, bool>>? predicate = null);
+    Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
 }
