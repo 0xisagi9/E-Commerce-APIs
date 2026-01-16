@@ -2,10 +2,25 @@
 
 public interface IUnitOfWork : IDisposable
 {
-    IUserRepository User { get; }
-    Task<int> CompleteAsync();
-    void BeginTransaction();
-    Task CommitTransactionAsync();
-    void RollbackTransaction();
+    // User Domain
+    IUserRepository Users { get; }
+    IUserAddressRepository UserAddresses { get; }
+    IRoleRepository Roles { get; }
+    IRefreshTokenRepository RefreshTokens { get; }
+
+    // Product Catalog Domain
+    IProductRepository Products { get; }
+    ICategoryRepository Categories { get; }
+    IBrandRepository Brands { get; }
+    IProductImagesRepository ProductImages { get; }
+
+    // Vendor & Inventory Domain
+    IVendorRepository Vendors { get; }
+    IVendorOfferRepository VendorOffers { get; }
+    IInventoryRepository Inventory { get; }
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    Task BeginTransactionAsync(CancellationToken cancellationToken = default);
+    Task CommitTransactionAsync(CancellationToken cancellationToken = default);
+    Task RollbackTransactionAsync(CancellationToken cancellationToken = default);
 }
 
