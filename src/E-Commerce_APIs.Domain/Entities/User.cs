@@ -18,15 +18,15 @@ public partial class User
 
     public string? PhoneNumber { get; set; }
 
-    public bool? IsVerified { get; set; }
+    public bool IsVerified { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
-    public DateTime? ModifiedDate { get; set; }
+    public DateTime ModifiedDate { get; set; }
 
     public DateTime? DeletedAt { get; set; }
 
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
     public string? Slug { get; set; }
 
