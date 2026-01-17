@@ -11,6 +11,7 @@ public class UnitOfWork : IUnitOfWork
     private IUserRepository? _users;
     private IUserAddressRepository? _userAddresses;
     private IRoleRepository? _roles;
+    private IUsersRolesRepository? _usersRoles;
     private IRefreshTokenRepository? _refreshTokens;
 
     // Product Catalog Domain
@@ -38,6 +39,8 @@ public class UnitOfWork : IUnitOfWork
 
     public IRoleRepository Roles =>
         _roles ??= new RoleRepository(_context);
+
+    public IUsersRolesRepository UsersRoles => _usersRoles ??= new UsersRolesRepository(_context);
 
     public IRefreshTokenRepository RefreshTokens =>
         _refreshTokens ??= new RefreshTokenRepository(_context);
