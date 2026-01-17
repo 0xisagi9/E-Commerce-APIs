@@ -1,9 +1,12 @@
 ﻿using E_Commerce_APIs.Domain.Entities;
+using System.Security.Claims;
 
 namespace E_Commerce_APIs.Shared.Interfaces;
 
-public interface IJwtTokenGenerator
+public interface IJwtService
 {
-    public string GenerateToken(User user);
-    public string GenerateRefreshToken();
+    string GenerateAccessToken(User user, IEnumerable<string> roles);
+    string GenerateRefreshToken();
+    ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
+    Task<RefreshToken> CreateRefreshTokenAsync(Guid userId, string token, string? ipAddress, string? userAgent);
 }
