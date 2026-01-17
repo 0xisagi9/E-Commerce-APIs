@@ -16,9 +16,9 @@ public partial class Product
 
     public int? ReviewsCount { get; set; }
 
-    public DateTime? CreationDate { get; set; }
+    public DateTime CreationDate { get; set; }
 
-    public DateTime? ModifiedDate { get; set; }
+    public DateTime ModifiedDate { get; set; }
 
     public string? Slug { get; set; }
 
@@ -26,7 +26,7 @@ public partial class Product
 
     public DateTime? DeletedAt { get; set; }
 
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
     public virtual Brand? Brand { get; set; }
 
