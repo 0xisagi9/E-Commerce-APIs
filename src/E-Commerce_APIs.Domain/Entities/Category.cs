@@ -11,13 +11,13 @@ public partial class Category
 
     public string? Description { get; set; }
 
-    public DateTime? CreationDate { get; set; }
+    public DateTime CreationDate { get; set; }
 
-    public DateTime? ModifiedDate { get; set; }
+    public DateTime ModifiedDate { get; set; }
 
     public DateTime? DeletedAt { get; set; }
 
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
     public string? Slug { get; set; }
 
