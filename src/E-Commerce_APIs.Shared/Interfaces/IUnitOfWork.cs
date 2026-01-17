@@ -6,6 +6,7 @@ public interface IUnitOfWork : IDisposable
     IUserRepository Users { get; }
     IUserAddressRepository UserAddresses { get; }
     IRoleRepository Roles { get; }
+    IUsersRolesRepository UsersRoles { get; }
     IRefreshTokenRepository RefreshTokens { get; }
 
     // Product Catalog Domain
