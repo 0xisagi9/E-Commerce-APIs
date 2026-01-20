@@ -5,8 +5,8 @@ namespace E_Commerce_APIs.Shared.Interfaces;
 
 public interface IJwtService
 {
-    string GenerateAccessToken(User user, IEnumerable<string> roles);
+    string GenerateAccessToken(User user, string role);
     string GenerateRefreshToken();
     ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
-    Task<RefreshToken> CreateRefreshTokenAsync(Guid userId, string token, string? ipAddress, string? userAgent);
+    Task<RefreshToken> CreateRefreshTokenAsync(Guid userId, string token, string ipAddress, string userAgent);
 }
