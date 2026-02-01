@@ -20,7 +20,7 @@ public class JWTService : IJwtService
         _jwtSettings = jwtSettings.Value;
     }
 
-    public string GenerateAccessToken(User user, IEnumerable<string> roles)
+    public string GenerateAccessToken(User user, string role)
     {
         var claims = new List<Claim>
             {
@@ -32,14 +32,10 @@ public class JWTService : IJwtService
                 new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("firstName", user.FirstName),
                 new Claim("lastName", user.LastName),
-                new Claim("isVerified", user.IsVerified ? "true" : "false")
+                new Claim("isVerified", user.IsVerified ? "true" : "false"),
+                new Claim(ClaimTypes.Role, role)
             };
 
-        // Add roles to claims
-        foreach (var role in roles)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role));
-        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -59,7 +55,6 @@ public class JWTService : IJwtService
     {
         var refreshToken = new RefreshToken
         {
-            Id = Guid.NewGuid(),
             UserId = userId,
             Token = token,
             ExpiresAt = DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays),
