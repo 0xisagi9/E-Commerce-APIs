@@ -1,5 +1,6 @@
 ﻿using E_Commerce_APIs.Application.DTOs;
 using E_Commerce_APIs.Application.Features.Users.Commands.RegisterUser;
+using E_Commerce_APIs.Shared.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,10 +16,20 @@ public class AuthController : ControllerBase
 
     public AuthController(IMediator mediator) => _mediator = mediator;
 
+    /// <summary>
+    /// Register a new user
+    /// </summary>
+    /// <remarks>
+    /// Validation is automatically handled by FluentValidation in the MediatR pipeline.
+    /// If validation fails, a 400 Bad Request with detailed errors is returned.
+    /// </remarks>
     [HttpPost("register")]
-    public async Task<ActionResult<AuthResponseDto>> Register([FromBody] RegisterUserCommand command)
+    [ProducesResponseType(typeof(Result<AuthResponseDto>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Result<AuthResponseDto>>> Register([FromBody] RegisterUserCommand command)
     {
         var result = await _mediator.Send(command);
-        return Ok(result);
+        
+        return StatusCode(result.StatusCode, result);
     }
 }
