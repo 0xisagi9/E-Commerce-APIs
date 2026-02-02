@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using FluentValidation;
 using E_Commerce_APIs.Application.Exceptions;
+using FluentValidation.Results;
+
 namespace E_Commerce_APIs.Application.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
@@ -20,10 +22,13 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         // Create validation context
         var context = new ValidationContext<TRequest>(request);
 
-        // Run all validators
-        var validationResults = await Task.WhenAll(
-            _validators.Select(v => v.ValidateAsync(context, cancellationToken))
-        );
+        // Run validators sequentially to avoid concurrent DbContext access
+        var validationResults = new List<FluentValidation.Results.ValidationResult>();
+        foreach (var validator in _validators)
+        {
+            var result = await validator.ValidateAsync(context, cancellationToken);
+            validationResults.Add(result);
+        }
 
         // Collect all failures
         var failures = validationResults
