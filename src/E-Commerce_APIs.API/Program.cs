@@ -1,6 +1,7 @@
 using AutoMapper;
 using E_Commerce_APIs.API.Configurations;
 using E_Commerce_APIs.Application.Behaviors;
+using E_Commerce_APIs.Application.Features.Users.Commands.LoginUser;
 using E_Commerce_APIs.Application.Features.Users.Commands.RegisterUser;
 using E_Commerce_APIs.Application.Middleware;
 using E_Commerce_APIs.Infrastructure.Persistence.Context;
@@ -106,6 +107,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddMediatR(typeof(RegisterUserCommand).Assembly);
 builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterUserValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(LoginUserValidator).Assembly);
 
 
 
