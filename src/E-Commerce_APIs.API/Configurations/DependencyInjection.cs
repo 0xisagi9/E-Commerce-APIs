@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using E_Commerce_APIs.Application.Services;
+using E_Commerce_APIs.Application.Common.Interfaces;
 using E_Commerce_APIs.Domain.Entities;
 using E_Commerce_APIs.Infrastructure.Persistence.Context;
 using E_Commerce_APIs.Infrastructure.Persistence.UnitOfWork;
@@ -140,6 +142,12 @@ public static class DependencyInjection
 
         services.AddHttpContextAccessor();
 
+        // Application Services
+        services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+        services.AddScoped<IAuthenticationTokenService, AuthenticationTokenService>();
+        services.AddScoped<IAuthResponseBuilder, AuthResponseBuilder>();
+        services.AddScoped<IUserLoginService, UserLoginService>();
+        services.AddScoped<IRoleService, RoleService>();
 
         return services;
 
