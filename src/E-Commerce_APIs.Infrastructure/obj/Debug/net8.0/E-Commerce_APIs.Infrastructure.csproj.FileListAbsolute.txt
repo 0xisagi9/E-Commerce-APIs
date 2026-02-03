@@ -13,10 +13,8 @@ C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infras
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\obj\Debug\net8.0\E-Commerce_APIs.Infrastructure.pdb
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\obj\Debug\net8.0\E-Commerce_APIs.Infrastructure.genruntimeconfig.cache
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\obj\Debug\net8.0\ref\E-Commerce_APIs.Infrastructure.dll
-C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\bin\Debug\net8.0\E-Commerce_APIs.Application.dll
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\bin\Debug\net8.0\E-Commerce_APIs.Domain.dll
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\bin\Debug\net8.0\E-Commerce_APIs.Shared.dll
-C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\bin\Debug\net8.0\E-Commerce_APIs.Application.pdb
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\bin\Debug\net8.0\E-Commerce_APIs.Domain.pdb
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\bin\Debug\net8.0\E-Commerce_APIs.Shared.pdb
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Infrastructure\obj\Debug\net8.0\E-Commer.5A779601.Up2Date

@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Constants\" />
-    <Folder Include="Helpers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\E-Commerce_APIs.Domain\E-Commerce_APIs.Domain.csproj" />
   </ItemGroup>
 
