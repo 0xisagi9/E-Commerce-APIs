@@ -9,6 +9,7 @@ using E_Commerce_APIs.Infrastructure.Services;
 using E_Commerce_APIs.Shared.Constants;
 using E_Commerce_APIs.Shared.Interfaces;
 using E_Commerce_APIs.Shared.Settings;
+using E_Commerce_APIs.Application.Common.Builders;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
