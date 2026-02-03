@@ -10,3 +10,11 @@ C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Applic
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\refint\E-Commerce_APIs.Application.dll
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commerce_APIs.Application.pdb
 C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\ref\E-Commerce_APIs.Application.dll
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\bin\Debug\net8.0\E-Commerce_APIs.Domain.dll
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\bin\Debug\net8.0\E-Commerce_APIs.Infrastructure.dll
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\bin\Debug\net8.0\E-Commerce_APIs.Shared.dll
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\bin\Debug\net8.0\E-Commerce_APIs.Infrastructure.pdb
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\bin\Debug\net8.0\E-Commerce_APIs.Domain.pdb
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\bin\Debug\net8.0\E-Commerce_APIs.Shared.pdb
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commerce_APIs.Application.csproj.AssemblyReference.cache
+C:\My-Data\Backend Developer\Projects\E-Commerce_APIs\src\E-Commerce_APIs.Application\obj\Debug\net8.0\E-Commer.67EF311E.Up2Date

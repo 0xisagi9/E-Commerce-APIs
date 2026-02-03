@@ -8,19 +8,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="DTOs\" />
-		<Folder Include="Behaviors\" />
 		<Folder Include="Features\Category\" />
 		<Folder Include="Features\Brand\" />
 		<Folder Include="Features\Cart\" />
 		<Folder Include="Features\Review\" />
 		<Folder Include="Features\Payment\" />
 		<Folder Include="Features\Orders\" />
-		<Folder Include="Features\Users\Queries\" />
 		<Folder Include="Features\Vendor\" />
 		<Folder Include="Features\Product\" />
 		<Folder Include="Mappings\" />
-		<Folder Include="Exceptions\" />
 	</ItemGroup>
 
 	<ItemGroup>
