@@ -1,3 +1,34 @@
-.vs/*
-src/*/appsettings.json
-src/*/appsettings.Development.json
+# Ignore VS Code Files
+.vs/
+.vscode/
+
+# Ingnore Packages Files
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+*.nuget
+
+
+# Ingnore Bin, Obj, Debug Files
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+appsettings.Development.json
+appsettings.Production.json
+
+# Others
+*.tmp
+*.temp
+*.swp
+*.swo
