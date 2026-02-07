@@ -1,4 +1,5 @@
 ﻿using E_Commerce_APIs.Application.DTOs;
+using E_Commerce_APIs.Application.Features.Users.Queries.GetUserById;
 using E_Commerce_APIs.Application.Features.Users.Queries.GetUsers;
 using E_Commerce_APIs.Shared.Helpers;
 using MediatR;
@@ -22,5 +23,15 @@ public class AdminController : ControllerBase
     {
         var result = await _mediator.Send(query);
         return Ok(result);
+    }
+
+    [HttpGet("users/{userId:guid}")]
+    [ProducesResponseType(typeof(Result<UserDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Result<UserDto>>> GetUserById(Guid userId)
+    {
+        var query = new GetUserByIdQuery() { Id = userId };
+        var result = await _mediator.Send(query);
+        return StatusCode(result.StatusCode, result);
     }
 }
