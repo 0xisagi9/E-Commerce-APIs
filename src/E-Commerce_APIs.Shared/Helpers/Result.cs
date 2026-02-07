@@ -1,4 +1,7 @@
-﻿namespace E_Commerce_APIs.Shared.Helpers;
+﻿using System.ComponentModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace E_Commerce_APIs.Shared.Helpers;
 
 public class Result<T>
 {
@@ -17,13 +20,14 @@ public class Result<T>
         Errors = errors;
     }
 
-    public static Result<T> Success(T data, string message = "Operation completed successfully", int statusCode = 200) 
+    public static Result<T> Success(T data, string message = "Operation completed successfully", int statusCode = 200)
         => new(true, data, message, statusCode);
 
-    public static Result<T> Failure(string message, int statusCode = 400, IDictionary<string, string[]>? errors = null) 
+    public static Result<T> Failure(string message, int statusCode = 400, IDictionary<string, string[]>? errors = null)
         => new(false, default, message, statusCode, errors);
+    public static Result<T> NotFound(string message, int statusCode = 204) => new(true, default, message, statusCode);
 
-    public static Result<T> ValidationFailure(string message, IDictionary<string, string[]> errors, int statusCode = 400) 
+    public static Result<T> ValidationFailure(string message, IDictionary<string, string[]> errors, int statusCode = 400)
         => new(false, default, message, statusCode, errors);
 }
 
@@ -42,12 +46,12 @@ public class Result
         Errors = errors;
     }
 
-    public static Result Success(string message = "Operation completed successfully", int statusCode = 200) 
+    public static Result Success(string message = "Operation completed successfully", int statusCode = 200)
         => new(true, message, statusCode);
 
-    public static Result Failure(string message, int statusCode = 400, IDictionary<string, string[]>? errors = null) 
+    public static Result Failure(string message, int statusCode = 400, IDictionary<string, string[]>? errors = null)
         => new(false, message, statusCode, errors);
 
-    public static Result ValidationFailure(string message, IDictionary<string, string[]> errors, int statusCode = 400) 
+    public static Result ValidationFailure(string message, IDictionary<string, string[]> errors, int statusCode = 400)
         => new(false, message, statusCode, errors);
 }
