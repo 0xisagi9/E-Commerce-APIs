@@ -10,6 +10,7 @@ packages/
 *.nuget
 
 
+
 # Ingnore Bin, Obj, Debug Files
 [Dd]ebug/
 [Dd]ebugPublic/
