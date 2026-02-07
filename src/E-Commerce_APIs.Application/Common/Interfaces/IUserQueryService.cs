@@ -1,6 +1,8 @@
 namespace E_Commerce_APIs.Application.Common.Interfaces;
 
+using E_Commerce_APIs.Application.DTOs;
 using E_Commerce_APIs.Domain.Entities;
+using E_Commerce_APIs.Shared.Helpers;
 using System.Linq.Expressions;
 
 /// <summary>
@@ -12,10 +14,9 @@ public interface IUserQueryService
     /// <summary>
     /// Gets users with optional filtering
     /// </summary>
-    Task<(List<User> users, int totalCount)> GetUsersAsync(
-        Expression<Func<User, bool>> specification,
-        int skip,
-        int take,
-        string? sortBy,
-        string? sortOrder);
+    Task<(List<User> users, int totalCount)> GetUsersAsync(Expression<Func<User, bool>> specification,
+        int skip, int take, string? sortBy, string? sortOrder);
+    Task<UserDto?> GetUserByIdAsync(Guid id);
 }
+
+
