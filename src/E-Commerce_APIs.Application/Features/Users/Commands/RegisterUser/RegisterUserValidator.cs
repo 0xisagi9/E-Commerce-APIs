@@ -51,7 +51,7 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserCommand>
             .NotEmpty().WithMessage("Phone number is required")
             .MaximumLength(20).WithMessage("Phone number cannot exceed 20 characters")
             .Matches(@"^(0020|\+20|0)?1[0125][0-9]{8}$").WithMessage("Invalid phone number format")
-            .MustAsync(BeUniquePhoneNumber).WithMessage("Phone Number already Exist");
+            .MustAsync(BeUniquePhoneNumber).WithMessage("Phone Number already exists");
     }
 
     private async Task<bool> BeUniqueUserName(string userName, CancellationToken cancellationToken)
