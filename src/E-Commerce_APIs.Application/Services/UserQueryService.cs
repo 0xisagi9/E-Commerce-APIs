@@ -1,5 +1,7 @@
 using E_Commerce_APIs.Application.Common.Interfaces;
+using E_Commerce_APIs.Application.DTOs;
 using E_Commerce_APIs.Domain.Entities;
+using E_Commerce_APIs.Shared.Helpers;
 using E_Commerce_APIs.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -51,6 +53,25 @@ public class UserQueryService : IUserQueryService
         return (users, totalCount);
     }
 
+    public async Task<UserDto?> GetUserByIdAsync(Guid id)
+    {
+        var response = await _unitOfWork.Users.GetByIdAsync(id);
+        if (response == null)
+            return null;
+        var user = new UserDto()
+        {
+            Id = response.Id,
+            FirstName = response.FirstName,
+            LastName = response.LastName,
+            Email = response.Email,
+            IsVerified = response.IsVerified,
+            PhoneNumber = response.PhoneNumber,
+        };
+
+        return user;
+
+    }
+
     private IQueryable<User> ApplySorting(IQueryable<User> query, string? sortBy, string? sortOrder)
     {
         var (normalizedSortBy, isDescending) = _sortService.GetSortOptions(sortBy, sortOrder);
@@ -66,4 +87,6 @@ public class UserQueryService : IUserQueryService
             _ => query.OrderByDescending(u => u.CreatedAt)
         };
     }
+
+
 }
