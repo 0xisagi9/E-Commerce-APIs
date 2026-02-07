@@ -2,6 +2,7 @@
 using E_Commerce_APIs.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace E_Commerce_APIs.Infrastructure.Repositories;
 
@@ -41,4 +42,10 @@ public class BaseRepository<TEntity, Tkey> : IBaseRepository<TEntity, Tkey> wher
     public virtual async Task<IEnumerable<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
     public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>>? predicate = null) => predicate == null
         ? await _dbSet.CountAsync() : await _dbSet.CountAsync(predicate);
+
+    // For Complex Queries
+    public IQueryable<TEntity> GetQueryble() => _dbSet.AsQueryable();
+
+    public IQueryable<TEntity> GetQueryble(ISpecification<TEntity> specification) => _dbSet.Where(specification.Criteria);
+
 }
