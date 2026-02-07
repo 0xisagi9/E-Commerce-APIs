@@ -149,6 +149,11 @@ public static class DependencyInjection
         services.AddScoped<IAuthResponseBuilder, AuthResponseBuilder>();
         services.AddScoped<IUserLoginService, UserLoginService>();
         services.AddScoped<IRoleService, RoleService>();
+        
+        // User Query Services
+        services.AddScoped<IUserSortService, UserSortService>();
+        services.AddScoped<IUserQueryService, UserQueryService>();
+        services.AddScoped<IUserDtoMapper, UserDtoMapper>();
 
         return services;
 
