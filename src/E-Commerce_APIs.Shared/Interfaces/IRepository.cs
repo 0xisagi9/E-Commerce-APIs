@@ -13,4 +13,8 @@ public interface IBaseRepository<TEntity, TKey> where TEntity : class
     Task DeleteAsync(TEntity entity);
     Task<int> CountAsync(Expression<Func<TEntity, bool>>? predicate = null);
     Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
+
+    // For Complex Queries
+    IQueryable<TEntity> GetQueryble();
+    IQueryable<TEntity> GetQueryble(ISpecification<TEntity> specification);
 }
