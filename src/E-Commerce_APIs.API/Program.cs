@@ -3,7 +3,7 @@ using E_Commerce_APIs.API.Configurations;
 using E_Commerce_APIs.Application.Behaviors;
 using E_Commerce_APIs.Application.Features.Users.Commands.LoginUser;
 using E_Commerce_APIs.Application.Features.Users.Commands.RegisterUser;
-using E_Commerce_APIs.Application.Middleware;
+using E_Commerce_APIs.API;
 using E_Commerce_APIs.Infrastructure.Persistence.Context;
 using E_Commerce_APIs.Infrastructure.Persistence.UnitOfWork;
 using E_Commerce_APIs.Infrastructure.Services;
