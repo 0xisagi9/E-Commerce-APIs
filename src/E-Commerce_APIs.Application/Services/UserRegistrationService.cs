@@ -31,15 +31,15 @@ public class UserRegistrationService : IUserRegistrationService
         return await _unitOfWork.Users.AddAsync(user);
     }
 
-    public async Task AssignCustomerRoleAsync(User user)
+    public async Task AssignRoleAsync(User user, string role)
     {
-        var role = await _unitOfWork.Roles.GetByNameAsync(Roles.Customer);
-        if (role == null)
+        var roles = await _unitOfWork.Roles.GetByNameAsync(role);
+        if (roles == null)
             throw new InvalidOperationException("Customer role not found");
 
         var userRole = new UserRole
         {
-            RoleId = role.Id,
+            RoleId = roles.Id,
             UserId = user.Id,
         };
 
