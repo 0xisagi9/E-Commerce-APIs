@@ -1,4 +1,6 @@
 ﻿using E_Commerce_APIs.Application.DTOs;
+using E_Commerce_APIs.Application.Features.Users.Commands.AdminCreateUser;
+using E_Commerce_APIs.Application.Features.Users.Commands.RegisterUser;
 using E_Commerce_APIs.Application.Features.Users.Queries.GetUserById;
 using E_Commerce_APIs.Application.Features.Users.Queries.GetUsers;
 using E_Commerce_APIs.Shared.Helpers;
@@ -21,8 +23,8 @@ public class AdminController : ControllerBase
     [ProducesResponseType(typeof(PaginatedResult<UserDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUsers([FromQuery] GetUsersQuery query)
     {
-        var result = await _mediator.Send(query);
-        return Ok(result);
+        var response = await _mediator.Send(query);
+        return Ok(response);
     }
 
     [HttpGet("users/{userId:guid}")]
@@ -31,7 +33,16 @@ public class AdminController : ControllerBase
     public async Task<ActionResult<Result<UserDto>>> GetUserById(Guid userId)
     {
         var query = new GetUserByIdQuery() { Id = userId };
-        var result = await _mediator.Send(query);
-        return StatusCode(result.StatusCode, result);
+        var response = await _mediator.Send(query);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [HttpPost("users")]
+    [ProducesResponseType(typeof(Result<UserDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Result<UserDto>>> AddUser([FromBody] AdminCreateUserCommand request)
+    {
+        var response = await _mediator.Send(request);
+        return StatusCode(response.StatusCode, response);
     }
 }
