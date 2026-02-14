@@ -58,10 +58,3 @@ CREATE TABLE Product_Images (
     slug VARCHAR(255),
     FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE
 );
-
-ALTER TABLE category 
-ADD COLUMN parent_id INT NULL;
-
-ALTER TABLE category
-ADD CONSTRAINT fk_category_parent
-FOREIGN KEY (parent_id) REFERENCES category(id) ON DELETE SET NULL;
