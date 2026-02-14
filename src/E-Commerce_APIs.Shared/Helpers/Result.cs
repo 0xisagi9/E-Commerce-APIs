@@ -54,4 +54,6 @@ public class Result
 
     public static Result ValidationFailure(string message, IDictionary<string, string[]> errors, int statusCode = 400)
         => new(false, message, statusCode, errors);
+    public static Result NotFound(string message, int statusCode = 204) => new(true, message, statusCode);
+
 }
