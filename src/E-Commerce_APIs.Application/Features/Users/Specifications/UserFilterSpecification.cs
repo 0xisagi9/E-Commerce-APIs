@@ -31,7 +31,7 @@ public class UserFilterSpecification : ISpecification<User>
         return predicate;
 
     }
-    private Expression<Func<User, bool>> CombineAnd(Expression<Func<User, bool>> left, Expression<Func<User, bool>> right)
+    private static Expression<Func<User, bool>> CombineAnd(Expression<Func<User, bool>> left, Expression<Func<User, bool>> right)
     {
         var parameter = Expression.Parameter(typeof(User));
         var combined = Expression.AndAlso(

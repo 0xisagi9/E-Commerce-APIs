@@ -17,9 +17,7 @@ public class AuthController : ControllerBase
 
     public AuthController(IMediator mediator) => _mediator = mediator;
 
-    /// <summary>
-    /// Register a new user
-    /// </summary>
+
     [HttpPost("register")]
     [ProducesResponseType(typeof(Result<AuthResponseDto>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
@@ -29,9 +27,7 @@ public class AuthController : ControllerBase
 
         return StatusCode(result.StatusCode, result);
     }
-    /// <summary>
-    /// Login User
-    /// </summary>
+
     [HttpPost("login")]
     [ProducesResponseType(typeof(Result<AuthResponseDto>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]

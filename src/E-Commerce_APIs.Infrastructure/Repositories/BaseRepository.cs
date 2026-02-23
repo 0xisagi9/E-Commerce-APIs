@@ -8,10 +8,10 @@ namespace E_Commerce_APIs.Infrastructure.Repositories;
 
 public class BaseRepository<TEntity, Tkey> : IBaseRepository<TEntity, Tkey> where TEntity : class
 {
-    protected readonly DbContext _context;
+    protected readonly AppDbContext _context;
     protected readonly DbSet<TEntity> _dbSet;
 
-    public BaseRepository(DbContext context)
+    public BaseRepository(AppDbContext context)
     {
         _context = context;
         _dbSet = context.Set<TEntity>();

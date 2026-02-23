@@ -1,6 +1,7 @@
 ﻿using E_Commerce_APIs.Domain.Entities;
 using E_Commerce_APIs.Infrastructure.Persistence.Context;
 using E_Commerce_APIs.Shared.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce_APIs.Infrastructure.Repositories;
 

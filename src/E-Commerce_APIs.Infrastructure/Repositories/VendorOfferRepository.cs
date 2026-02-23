@@ -1,4 +1,5 @@
 ﻿using E_Commerce_APIs.Domain.Entities;
+using E_Commerce_APIs.Infrastructure.Persistence.Context;
 using E_Commerce_APIs.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,7 +7,7 @@ namespace E_Commerce_APIs.Infrastructure.Repositories;
 
 public class VendorOfferRepository : BaseRepository<VendorOffer, int>, IVendorOfferRepository
 {
-    public VendorOfferRepository(DbContext context) : base(context) { }
+    public VendorOfferRepository(AppDbContext context) : base(context) { }
 
     public async Task<IEnumerable<VendorOffer>> GetOffersByProductAsync(int productId) => await _dbSet
             .Include(vo => vo.Vendor)

@@ -42,9 +42,10 @@ public class VendorController : ControllerBase
     }
 
 
-    [HttpPost("{vendorId:guid}")]
+    [HttpPatch("{vendorId:guid}")]
     [ProducesResponseType(typeof(Result<VendorDTO>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActionResult<Result<VendorDTO>>> UpdateVendor([FromBody] UpdateVendorCommand request, Guid vendorId)
     {
         request.Id = vendorId;
@@ -55,6 +56,7 @@ public class VendorController : ControllerBase
     [HttpDelete("{vendorId:guid}")]
     [ProducesResponseType(typeof(Result), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActionResult<Result>> DeleteVendor(Guid vendorId)
     {
         var command = new DeleteVendorCommand() { Id = vendorId };

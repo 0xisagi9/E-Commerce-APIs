@@ -12,6 +12,6 @@ namespace E_Commerce_APIs.Application.Common.Interfaces;
 /// </summary>
 public interface IAuthenticationTokenService
 {
-    Task<AuthTokenDto> GenerateAuthTokenAsync(User user, string roleName, IUnitOfWork unitOfWork);
+    Task<AuthTokenDto> GenerateAuthTokenAsync(User user, IEnumerable<string> roles, IUnitOfWork unitOfWork);
     void SetRefreshTokenCookie(string refreshToken, DateTime expiration, ICookieService cookieService);
 }

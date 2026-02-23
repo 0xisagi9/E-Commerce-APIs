@@ -19,6 +19,7 @@ public class UnitOfWork : IUnitOfWork
     private ICategoryRepository? _categories;
     private IBrandRepository? _brands;
     private IProductImagesRepository? _productImages;
+    private IProductCategoryRepository? _productCategories;
 
     // Vendor & Inventory Domain
     private IVendorRepository? _vendors;
@@ -56,6 +57,9 @@ public class UnitOfWork : IUnitOfWork
 
     public IProductImagesRepository ProductImages =>
         _productImages ??= new ProductImagesRepository(_context);
+
+    public IProductCategoryRepository ProductCategories =>
+        _productCategories ??= new ProductCategoryRepository(_context);
 
     // Vendor & Inventory Domain Properties
     public IVendorRepository Vendors =>

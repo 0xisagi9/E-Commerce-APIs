@@ -11,6 +11,6 @@ namespace E_Commerce_APIs.Application.Common.Interfaces;
 /// </summary>
 public interface IAuthResponseBuilder
 {
-    AuthResponseDto BuildAuthResponse(User user, string roleName, AuthTokenDto authToken);
+    AuthResponseDto BuildAuthResponse(User user, IEnumerable<string> roleNames, AuthTokenDto authToken);
 }
 

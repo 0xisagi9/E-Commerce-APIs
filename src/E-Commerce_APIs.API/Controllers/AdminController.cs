@@ -1,12 +1,13 @@
 ﻿using E_Commerce_APIs.Application.DTOs;
-using E_Commerce_APIs.Application.Features.Users.Commands.AdminCreateUser;
+using E_Commerce_APIs.Application.Features.Users.Commands.CreateUser;
+using E_Commerce_APIs.Application.Features.Users.Commands.DeleteUser;
 using E_Commerce_APIs.Application.Features.Users.Commands.RegisterUser;
+using E_Commerce_APIs.Application.Features.Users.Commands.UpdateUser;
 using E_Commerce_APIs.Application.Features.Users.Queries.GetUserById;
 using E_Commerce_APIs.Application.Features.Users.Queries.GetUsers;
 using E_Commerce_APIs.Shared.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce_APIs.API.Controllers;
@@ -27,6 +28,25 @@ public class AdminController : ControllerBase
         return Ok(response);
     }
 
+    [HttpPost("users")]
+    [ProducesResponseType(typeof(Result<UserDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Result<UserDto>>> AddUser([FromBody] CreateUserCommand request)
+    {
+        var response = await _mediator.Send(request);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [HttpPatch("users/{userId:guid}")]
+    [ProducesResponseType(typeof(Result<UserDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<UserDto>> UpdateUser([FromBody] UpdateUserCommand request, Guid userId)
+    {
+        request.Id = userId;
+        var response = await _mediator.Send(request);
+        return StatusCode(response.StatusCode, response);
+    }
+
     [HttpGet("users/{userId:guid}")]
     [ProducesResponseType(typeof(Result<UserDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
@@ -37,12 +57,15 @@ public class AdminController : ControllerBase
         return StatusCode(response.StatusCode, response);
     }
 
-    [HttpPost("users")]
-    [ProducesResponseType(typeof(Result<UserDto>), StatusCodes.Status200OK)]
+    [HttpDelete("users/{userId:guid}")]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Result<UserDto>>> AddUser([FromBody] AdminCreateUserCommand request)
+    public async Task<ActionResult<Result>> DeleteUser(Guid userId)
     {
-        var response = await _mediator.Send(request);
+        var command = new DeleteUserCommand() { Id = userId };
+        var response = await _mediator.Send(command);
+        if (response.IsSuccess)
+            return NoContent();
         return StatusCode(response.StatusCode, response);
     }
 }

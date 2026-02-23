@@ -11,5 +11,5 @@ namespace E_Commerce_APIs.Application.Common.Interfaces;
 public interface IUserRegistrationService
 {
     Task<User> CreateUserAsync(string userName, string email, string firstName, string lastName, string phoneNumber, string passwordHash);
-    Task AssignRoleAsync(User user, string role);
+    Task AssignRoleAsync(User user, IEnumerable<string> roles);
 }

@@ -5,16 +5,19 @@ using E_Commerce_APIs.Application.Services;
 using MediatR;
 using System.Linq.Expressions;
 using E_Commerce_APIs.Domain.Entities;
+using AutoMapper;
 
 namespace E_Commerce_APIs.Application.Features.Vendors.Queries.GetVendors;
 
 public class GetVendorQueryHandler : IRequestHandler<GetVendorsQuery, PaginatedResult<VendorDTO>>
 {
     private readonly VendorQueryService _vendorQueryService;
+    private readonly IMapper _mapper;
 
-    public GetVendorQueryHandler(VendorQueryService vendorQueryService)
+    public GetVendorQueryHandler(VendorQueryService vendorQueryService, IMapper mapper)
     {
         _vendorQueryService = vendorQueryService;
+        _mapper = mapper;
     }
 
     public async Task<PaginatedResult<VendorDTO>> Handle(GetVendorsQuery request, CancellationToken cancellationToken)
@@ -33,17 +36,8 @@ public class GetVendorQueryHandler : IRequestHandler<GetVendorsQuery, PaginatedR
             request.SortBy,
             request.SortOrder);
 
-        // Map to DTOs using inline mapping
-        var vendorDtos = vendors.Select(v => new VendorDTO
-        {
-            Id = v.Id,
-            Name = v.Name,
-            Email = v.Email,
-            PhoneNumber = v.PhoneNumber,
-            WebsiteUrl = v.WebsiteUrl,
-            AverageRate = v.AverageRate,
-            Slug = v.Slug
-        }).ToList();
+        // Map to DTOs using AutoMapper
+        var vendorDtos = _mapper.Map<List<VendorDTO>>(vendors);
 
         // Build paginated result
         return _vendorQueryService.CreatePaginatedResult(

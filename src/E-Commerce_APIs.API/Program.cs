@@ -1,4 +1,3 @@
-using AutoMapper;
 using E_Commerce_APIs.API.Configurations;
 using E_Commerce_APIs.Application.Behaviors;
 using E_Commerce_APIs.Application.Features.Users.Commands.LoginUser;
@@ -23,6 +22,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add logging first - so we can see what's happening
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
 // Load Environment-Specific configuration
 builder.Configuration
@@ -34,7 +38,6 @@ builder.Configuration
 
 // Add Infrastructure layer (DbContext, Repositories, Unit of Work, JWT)
 builder.Services.AddInfrastructure(builder.Configuration);
-
 
 
 
@@ -107,12 +110,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddMediatR(typeof(RegisterUserCommand).Assembly);
 builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterUserValidator).Assembly);
-builder.Services.AddValidatorsFromAssembly(typeof(LoginUserValidator).Assembly);
-
-
-
-// Add AutoMapper
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 
 

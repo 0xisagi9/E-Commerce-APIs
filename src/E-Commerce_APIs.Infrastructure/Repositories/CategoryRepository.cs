@@ -1,6 +1,7 @@
 ﻿
 
 using E_Commerce_APIs.Domain.Entities;
+using E_Commerce_APIs.Infrastructure.Persistence.Context;
 using E_Commerce_APIs.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,7 @@ namespace E_Commerce_APIs.Infrastructure.Repositories;
 
 public class CategoryRepository : BaseRepository<Category, int>, ICategoryRepository
 {
-    public CategoryRepository(DbContext context) : base(context) { }
+    public CategoryRepository(AppDbContext context) : base(context) { }
     public async Task<Category?> GetByIdWithChildrenAsync(int id) => await _dbSet
             .Include(c => c.InverseParent)
             .FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);

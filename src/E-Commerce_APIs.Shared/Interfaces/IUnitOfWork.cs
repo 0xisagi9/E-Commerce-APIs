@@ -14,11 +14,13 @@ public interface IUnitOfWork : IDisposable
     ICategoryRepository Categories { get; }
     IBrandRepository Brands { get; }
     IProductImagesRepository ProductImages { get; }
+    IProductCategoryRepository ProductCategories { get; }
 
     // Vendor & Inventory Domain
     IVendorRepository Vendors { get; }
     IVendorOfferRepository VendorOffers { get; }
     IInventoryRepository Inventory { get; }
+    
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     Task BeginTransactionAsync(CancellationToken cancellationToken = default);
     Task CommitTransactionAsync(CancellationToken cancellationToken = default);

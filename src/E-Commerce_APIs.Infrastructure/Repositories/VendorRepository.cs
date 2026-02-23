@@ -1,4 +1,5 @@
 ﻿using E_Commerce_APIs.Domain.Entities;
+using E_Commerce_APIs.Infrastructure.Persistence.Context;
 using E_Commerce_APIs.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,7 +7,7 @@ namespace E_Commerce_APIs.Infrastructure.Repositories;
 
 public class VendorRepository : BaseRepository<Vendor, Guid>, IVendorRepository
 {
-    public VendorRepository(DbContext context) : base(context) { }
+    public VendorRepository(AppDbContext context) : base(context) { }
 
     public async Task<Vendor?> GetByEmailAsync(string email) => await _dbSet
             .FirstOrDefaultAsync(v => v.Email == email && !v.IsDeleted);
@@ -25,4 +26,9 @@ public class VendorRepository : BaseRepository<Vendor, Guid>, IVendorRepository
             .Include(v => v.VendorOffers)
                 .ThenInclude(vo => vo.Inventory)
             .FirstOrDefaultAsync(v => v.Id == id && !v.IsDeleted);
+
+    public async Task<Vendor?> GetByNameAsync(string name) => await _dbSet.FirstOrDefaultAsync(v => v.Name == name);
+
+    public async Task<Vendor?> GetByPhoneNumber(string phoneNumber) => await _dbSet.FirstOrDefaultAsync(v => v.PhoneNumber == phoneNumber);
+
 }

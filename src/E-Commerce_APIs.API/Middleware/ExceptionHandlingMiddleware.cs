@@ -15,7 +15,7 @@ public class ExceptionHandlingMiddleware
         _next = next;
     }
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, ILogger<ExceptionHandlingMiddleware> logger)
     {
         try
         {
@@ -23,11 +23,12 @@ public class ExceptionHandlingMiddleware
         }
         catch (Exception ex)
         {
-            await HandleExceptionAsync(context, ex);
+            logger.LogError(ex, "An unhandled exception occurred");
+            await HandleExceptionAsync(context, ex, logger);
         }
     }
 
-    private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private async Task HandleExceptionAsync(HttpContext context, Exception exception, ILogger<ExceptionHandlingMiddleware> logger)
     {
         var response = context.Response;
         response.ContentType = "application/json";
@@ -59,6 +60,8 @@ public class ExceptionHandlingMiddleware
                 break;
 
             default:
+                // Log the exception for debugging
+                logger.LogError(exception, "Unhandled exception: {ExceptionMessage}", exception.Message);
                 resultResponse = Result.Failure(
                     "An internal server error occurred",
                     (int)HttpStatusCode.InternalServerError

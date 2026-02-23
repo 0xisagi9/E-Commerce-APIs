@@ -3,6 +3,7 @@ using E_Commerce_APIs.Shared.Helpers;
 using E_Commerce_APIs.Shared.Interfaces;
 using MediatR;
 using E_Commerce_APIs.Domain.Entities;
+using AutoMapper;
 
 
 namespace E_Commerce_APIs.Application.Features.Vendors.Commands.CreateVendor;
@@ -10,8 +11,13 @@ namespace E_Commerce_APIs.Application.Features.Vendors.Commands.CreateVendor;
 public class CreateVendorCommandHandler : IRequestHandler<CreateVendorCommand, Result<VendorDTO>>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public CreateVendorCommandHandler(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
+    public CreateVendorCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    {
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
+    }
 
     public async Task<Result<VendorDTO>> Handle(CreateVendorCommand request, CancellationToken cancellationToken)
     {
@@ -31,23 +37,13 @@ public class CreateVendorCommandHandler : IRequestHandler<CreateVendorCommand, R
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             await _unitOfWork.CommitTransactionAsync();
 
-            var vendorDTO = new VendorDTO()
-            {
-                Id = vendor.Id,
-                Name = vendor.Name,
-                Email = vendor.Email,
-                PhoneNumber = vendor.PhoneNumber,
-                AverageRate = vendor.AverageRate,
-                Slug = vendor.Slug,
-                WebsiteUrl = vendor.WebsiteUrl,
-            };
+            var vendorDTO = _mapper.Map<VendorDTO>(vendor);
 
             return Result<VendorDTO>.Success(vendorDTO, "Vendor created successfully", 201);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             await _unitOfWork.RollbackTransactionAsync(cancellationToken);
-            // ✅ FIXED: Re-throw the actual exception for debugging
             throw;
         }
     }

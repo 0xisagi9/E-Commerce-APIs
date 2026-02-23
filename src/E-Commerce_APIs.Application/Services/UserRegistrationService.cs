@@ -6,14 +6,18 @@ using E_Commerce_APIs.Shared.Constants;
 using E_Commerce_APIs.Shared.Interfaces;
 
 using E_Commerce_APIs.Application.Common.Interfaces;
+using System.Linq.Expressions;
 
 public class UserRegistrationService : IUserRegistrationService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IPasswordHasher _passwordHasher;
 
-    public UserRegistrationService(IUnitOfWork unitOfWork)
+    public UserRegistrationService(IUnitOfWork unitOfWork, IPasswordHasher passwordHasher)
     {
         _unitOfWork = unitOfWork;
+        _passwordHasher = passwordHasher;
+
     }
 
     public async Task<User> CreateUserAsync(string userName, string email, string firstName, string lastName, string phoneNumber, string passwordHash)
@@ -31,18 +35,21 @@ public class UserRegistrationService : IUserRegistrationService
         return await _unitOfWork.Users.AddAsync(user);
     }
 
-    public async Task AssignRoleAsync(User user, string role)
+    public async Task AssignRoleAsync(User user, IEnumerable<string> roles)
     {
-        var roles = await _unitOfWork.Roles.GetByNameAsync(role);
-        if (roles == null)
-            throw new InvalidOperationException("Customer role not found");
 
-        var userRole = new UserRole
+        foreach (var roleName in roles)
         {
-            RoleId = roles.Id,
-            UserId = user.Id,
-        };
+            var role = await _unitOfWork.Roles.GetByNameAsync(roleName);
+            if (role is null)
+                throw new InvalidOperationException("Customer role not found");
+            var userRole = new UserRole
+            {
+                UserId = user.Id,
+                RoleId = role.Id,
+            };
 
-        await _unitOfWork.UsersRoles.AddAsync(userRole);
+            await _unitOfWork.UsersRoles.AddAsync(userRole);
+        }
     }
 }

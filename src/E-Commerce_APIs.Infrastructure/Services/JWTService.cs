@@ -20,7 +20,7 @@ public class JWTService : IJwtService
         _jwtSettings = jwtSettings.Value;
     }
 
-    public string GenerateAccessToken(User user, string role)
+    public string GenerateAccessToken(User user, IEnumerable<string> roles)
     {
         var claims = new List<Claim>
             {
@@ -33,8 +33,10 @@ public class JWTService : IJwtService
                 new Claim("firstName", user.FirstName),
                 new Claim("lastName", user.LastName),
                 new Claim("isVerified", user.IsVerified ? "true" : "false"),
-                new Claim(ClaimTypes.Role, role)
             };
+
+        foreach (var role in roles)
+            claims.Add(new Claim(ClaimTypes.Role, role));
 
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));

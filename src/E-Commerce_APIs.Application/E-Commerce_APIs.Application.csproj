@@ -8,15 +8,27 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Features\Category\" />
-		<Folder Include="Features\Brand\" />
 		<Folder Include="Features\Cart\" />
+		<Folder Include="Features\Category\Commands\CreateCategory\" />
+		<Folder Include="Features\Category\Commands\DeleteCategory\" />
+		<Folder Include="Features\Category\Commands\UpdateCategory\" />
+		<Folder Include="Features\Category\Queries\GetCategories\" />
+		<Folder Include="Features\Category\Queries\GetCategoryById\" />
+		<Folder Include="Features\Category\Queries\GetCategoryByName\" />
+		<Folder Include="Features\Category\Queries\GetCategoryBySlug\" />
+		<Folder Include="Features\Category\Specificaitons\" />
+		<Folder Include="Features\Products\Commands\DeleteProduct\" />
+		<Folder Include="Features\Products\Commands\UpdateProduct\" />
+		<Folder Include="Features\Products\Queries\GetProducts\" />
+		<Folder Include="Features\Products\Queries\GetProductById\" />
+		<Folder Include="Features\Products\Queries\GetProductByName\" />
+		<Folder Include="Features\Products\Queries\GetProductBySlug\" />
+		<Folder Include="Features\Products\Specifications\" />
+		<Folder Include="Features\Role\" />
 		<Folder Include="Features\Review\" />
 		<Folder Include="Features\Payment\" />
 		<Folder Include="Features\Orders\" />
-		<Folder Include="Features\Vendor\" />
-		<Folder Include="Features\Product\" />
-		<Folder Include="Mappings\" />
+		<Folder Include="Profiles\" />
 	</ItemGroup>
 
 	<ItemGroup>

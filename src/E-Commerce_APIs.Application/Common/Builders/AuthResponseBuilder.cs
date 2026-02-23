@@ -6,7 +6,7 @@ namespace E_Commerce_APIs.Application.Common.Builders;
 
 public class AuthResponseBuilder : IAuthResponseBuilder
 {
-    public AuthResponseDto BuildAuthResponse(User user, string roleName, AuthTokenDto authToken)
+    public AuthResponseDto BuildAuthResponse(User user, IEnumerable<string> roleNames, AuthTokenDto authToken)
     {
         return new AuthResponseDto
         {
@@ -19,7 +19,7 @@ public class AuthResponseBuilder : IAuthResponseBuilder
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
                 IsVerified = user.IsVerified,
-                Roles = new List<string> { roleName }
+                Roles = roleNames.ToList()
             },
             AccessToken = authToken.AccessToken,
             ExpiresAt = authToken.ExpiresAt

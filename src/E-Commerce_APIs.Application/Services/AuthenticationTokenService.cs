@@ -17,9 +17,9 @@ public class AuthenticationTokenService : IAuthenticationTokenService
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<AuthTokenDto> GenerateAuthTokenAsync(User user, string roleName, IUnitOfWork unitOfWork)
+    public async Task<AuthTokenDto> GenerateAuthTokenAsync(User user, IEnumerable<string> roles, IUnitOfWork unitOfWork)
     {
-        var accessToken = _jwtService.GenerateAccessToken(user, roleName);
+        var accessToken = _jwtService.GenerateAccessToken(user, roles);
         var refreshToken = _jwtService.GenerateRefreshToken();
         var refreshTokenExpiration = DateTime.UtcNow.AddDays(7);
 

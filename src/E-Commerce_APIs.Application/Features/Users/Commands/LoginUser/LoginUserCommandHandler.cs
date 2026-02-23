@@ -43,12 +43,12 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Result<
                 return Result<AuthResponseDto>.Failure("User not found", 404);
 
             // Get primary role
-            var primaryRole = _roleService.GetUserPrimaryRoleName(userWithRoles);
-            if (primaryRole == null)
+            var userRoles = _roleService.GetUserRoleNames(userWithRoles);
+            if (userRoles == null)
                 return Result<AuthResponseDto>.Failure("User has no assigned role", 400);
 
             // Generate authentication tokens
-            var authToken = await _authenticationTokenService.GenerateAuthTokenAsync(userWithRoles, primaryRole, _unitOfWork);
+            var authToken = await _authenticationTokenService.GenerateAuthTokenAsync(userWithRoles, userRoles, _unitOfWork);
 
             // Save all changes and commit transaction
             await _unitOfWork.SaveChangesAsync();
@@ -58,7 +58,7 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Result<
             _authenticationTokenService.SetRefreshTokenCookie(authToken.RefreshToken, authToken.RefreshTokenExpiration, _cookieService);
 
             // Build and return response
-            var response = _authResponseBuilder.BuildAuthResponse(userWithRoles, primaryRole, authToken);
+            var response = _authResponseBuilder.BuildAuthResponse(userWithRoles, userRoles, authToken);
 
             return Result<AuthResponseDto>.Success(response, "Login successful", 200);
         }

@@ -1,29 +1,28 @@
 using E_Commerce_APIs.Application.Common.Interfaces;
+using E_Commerce_APIs.Domain.Entities;
 
 namespace E_Commerce_APIs.Application.Services;
 
-/// <summary>
-/// Handles sorting logic for user queries
-/// Centralizes and normalizes sort options
-/// </summary>
-public class UserSortService : IUserSortService
+public class UserSortService : GenericSortServiceBase<User>, IUserSortService
 {
-    /// <summary>
-    /// Normalizes and validates sort parameters
-    /// Returns normalized sort field and direction
-    /// </summary>
-    public (string sortBy, bool isDescending) GetSortOptions(string? sortBy, string? sortOrder)
+    protected override string[] ValidSortFields => new[]
+        { "username", "email", "firstname", "lastname", "created_at", "modified_date" };
+
+    protected override string DefaultSortField => "created_at";
+
+    public override IQueryable<User> ApplySorting(IQueryable<User> query, string? sortBy, string? sortOrder)
     {
-        var normalizedSortBy = (sortBy ?? "created_at").ToLower();
-        var isDescending = (sortOrder ?? "desc").ToLower() == "desc";
+        var (normalizedSortBy, isDescending) = GetSortOptions(sortBy, sortOrder);
 
-        // Validate sort field
-        var validSortFields = new[] { "username", "email", "firstname", "lastname", "created_at", "modified_date" };
-        if (!validSortFields.Contains(normalizedSortBy))
+        return normalizedSortBy switch
         {
-            normalizedSortBy = "created_at";
-        }
-
-        return (normalizedSortBy, isDescending);
+            "username" => ApplyOrdering(query, normalizedSortBy, isDescending, u => u.UserName),
+            "email" => ApplyOrdering(query, normalizedSortBy, isDescending, u => u.Email),
+            "firstname" => ApplyOrdering(query, normalizedSortBy, isDescending, u => u.FirstName),
+            "lastname" => ApplyOrdering(query, normalizedSortBy, isDescending, u => u.LastName),
+            "created_at" => ApplyOrdering(query, normalizedSortBy, isDescending, u => u.CreatedAt),
+            "modified_date" => ApplyOrdering(query, normalizedSortBy, isDescending, u => u.ModifiedDate),
+            _ => ApplyOrdering(query, normalizedSortBy, isDescending, u => u.CreatedAt)
+        };
     }
 }

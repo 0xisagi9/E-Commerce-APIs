@@ -10,14 +10,13 @@ namespace E_Commerce_APIs.Application.Features.Users.Commands.RegisterUser;
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result<AuthResponseDto>>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IPasswordHasher _passwordHasher;
     private readonly IUserRegistrationService _userRegistrationService;
     private readonly IAuthenticationTokenService _authenticationTokenService;
     private readonly IAuthResponseBuilder _authResponseBuilder;
     private readonly ICookieService _cookieService;
-
+    private readonly IPasswordHasher _passwordHasher;
     public RegisterUserCommandHandler(IUnitOfWork unitOfWork, IPasswordHasher passwordHasher, IUserRegistrationService userRegistrationService,
-        IAuthenticationTokenService authenticationTokenService, IAuthResponseBuilder authResponseBuilder, ICookieService cookieService)
+          IAuthenticationTokenService authenticationTokenService, IAuthResponseBuilder authResponseBuilder, ICookieService cookieService)
     {
         _unitOfWork = unitOfWork;
         _passwordHasher = passwordHasher;
@@ -39,15 +38,15 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
                 request.Email,
                 request.FirstName,
                 request.LastName,
-                request.PhoneNumber,
+                request.PhoneNumber ?? string.Empty, // Ensure non-null value
                 _passwordHasher.HashPassword(request.Password)
             );
 
             // Assign customer role
-            await _userRegistrationService.AssignCustomerRoleAsync(user);
+            await _userRegistrationService.AssignRoleAsync(user, new[] { Roles.Customer });
 
             // Generate authentication tokens
-            var authToken = await _authenticationTokenService.GenerateAuthTokenAsync(user, Roles.Customer, _unitOfWork);
+            var authToken = await _authenticationTokenService.GenerateAuthTokenAsync(user, new[] { Roles.Customer }, _unitOfWork);
 
             // Save all changes and commit transaction
             await _unitOfWork.SaveChangesAsync();
@@ -57,7 +56,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
             _authenticationTokenService.SetRefreshTokenCookie(authToken.RefreshToken, authToken.RefreshTokenExpiration, _cookieService);
 
             // Build and return response
-            var response = _authResponseBuilder.BuildAuthResponse(user, Roles.Customer, authToken);
+            var response = _authResponseBuilder.BuildAuthResponse(user, new[] { Roles.Customer }, authToken);
 
             return Result<AuthResponseDto>.Success(response, "Registration successful, please verify your email", 201);
         }

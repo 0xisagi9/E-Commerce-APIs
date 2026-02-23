@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
-using E_Commerce_APIs.Application.Services;
+using E_Commerce_APIs.Application.Common.Builders;
 using E_Commerce_APIs.Application.Common.Interfaces;
+using E_Commerce_APIs.Application.Common.Mappings;
+using E_Commerce_APIs.Application.DTOs;
+using E_Commerce_APIs.Application.Services;
 using E_Commerce_APIs.Domain.Entities;
 using E_Commerce_APIs.Infrastructure.Persistence.Context;
 using E_Commerce_APIs.Infrastructure.Persistence.UnitOfWork;
@@ -9,17 +12,10 @@ using E_Commerce_APIs.Infrastructure.Services;
 using E_Commerce_APIs.Shared.Constants;
 using E_Commerce_APIs.Shared.Interfaces;
 using E_Commerce_APIs.Shared.Settings;
-using E_Commerce_APIs.Application.Common.Builders;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using Microsoft.IdentityModel.Tokens;
-using Npgsql;
-using System.Reflection;
 using System.Text;
-using System.Xml.Schema;
 
 namespace E_Commerce_APIs.API.Configurations;
 
@@ -124,16 +120,17 @@ public static class DependencyInjection
         services.AddScoped<IUsersRolesRepository, UsersRolesRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
-        //// Product Catalog Domain Repositories
-        //services.AddScoped<IProductRepository, ProductRepository>();
-        //services.AddScoped<ICategoryRepository, CategoryRepository>();
-        //services.AddScoped<IBrandRepository, BrandRepository>();
-        //services.AddScoped<IProductImagesRepository, ProductImagesRepository>();
+        // Product Catalog Domain Repositories
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IBrandRepository, BrandRepository>();
+        services.AddScoped<IProductImagesRepository, ProductImagesRepository>();
+        services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 
-        //// Vendor & Inventory Domain Repositories
-        //services.AddScoped<IVendorRepository, VendorRepository>();
-        //services.AddScoped<IVendorOfferRepository, VendorOfferRepository>();
-        //services.AddScoped<IInventoryRepository, InventoryRepository>();
+        // Vendor & Inventory Domain Repositories
+        services.AddScoped<IVendorRepository, VendorRepository>();
+        services.AddScoped<IVendorOfferRepository, VendorOfferRepository>();
+        services.AddScoped<IInventoryRepository, InventoryRepository>();
 
 
         //JWT Services 
@@ -149,11 +146,19 @@ public static class DependencyInjection
         services.AddScoped<IAuthResponseBuilder, AuthResponseBuilder>();
         services.AddScoped<IUserLoginService, UserLoginService>();
         services.AddScoped<IRoleService, RoleService>();
-        
-        // User Query Services
-        services.AddScoped<IUserSortService, UserSortService>();
-        services.AddScoped<IUserQueryService, UserQueryService>();
-        services.AddScoped<IUserDtoMapper, UserDtoMapper>();
+
+        // Generic Query Services - Sort Services
+        services.AddScoped<IGenericSortService<User>, UserSortService>();
+        services.AddScoped<IGenericSortService<Vendor>, VendorSortService>();
+        services.AddScoped<IGenericSortService<Brand>, BrandSortService>();
+
+        // Generic Query Services - Query Services (Concrete Types for Direct Injection)
+        services.AddScoped<UserQueryService>();
+        services.AddScoped<VendorQueryService>();
+        services.AddScoped<BrandQueryService>();
+
+        // AutoMapper
+        services.AddAutoMapper(typeof(MappingProfile));
 
         return services;
 

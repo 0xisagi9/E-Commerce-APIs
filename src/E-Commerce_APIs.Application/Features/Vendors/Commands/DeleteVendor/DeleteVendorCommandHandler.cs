@@ -19,6 +19,8 @@ public class DeleteVendorCommandHandler : IRequestHandler<DeleteVendorCommand, R
         var vendor = await _unitOfWork.Vendors.GetByIdAsync(request.Id);
         if (vendor == null)
             return Result.NotFound("Vendor not found", 204);
+        if (vendor.IsDeleted == true)
+            return Result.Failure("Vendor Already Deleted", 400);
 
         // 2) Soft delete the vendor
         vendor.IsDeleted = true;

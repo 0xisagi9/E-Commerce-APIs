@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using E_Commerce_APIs.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using E_Commerce_APIs.Domain.Entities;
 
 namespace E_Commerce_APIs.Infrastructure.Persistence.Context;
@@ -62,6 +65,9 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<VendorOffer> VendorOffers { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=ECommerce-Development;Username=postgres;Password=9999;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pgcrypto");
@@ -80,7 +86,6 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("action");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.EntityId)
                 .HasMaxLength(50)
@@ -107,9 +112,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreationDate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnName("creation_date");
-            entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.IsDeleted)
                 .HasDefaultValue(false)
                 .HasColumnName("is_deleted");
@@ -203,9 +206,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreationDate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnName("creation_date");
-            entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.DisplayText)
                 .HasMaxLength(255)
@@ -462,9 +463,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreationDate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnName("creation_date");
-            entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Feature)
                 .HasColumnType("jsonb")
@@ -570,9 +569,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.IpAddress)
                 .HasMaxLength(45)
                 .HasColumnName("ip_address");
-            entity.Property(e => e.RevokedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("revoked_at");
+            entity.Property(e => e.RevokedAt).HasColumnName("revoked_at");
             entity.Property(e => e.Token).HasColumnName("token");
             entity.Property(e => e.UserAgent).HasColumnName("user_agent");
             entity.Property(e => e.UserId).HasColumnName("user_id");
@@ -685,9 +682,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnName("created_at");
-            entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .HasColumnName("email");
@@ -810,9 +805,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreationDate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnName("creation_date");
-            entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .HasColumnName("email");
@@ -850,9 +843,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreationDate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnName("creation_date");
-            entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.IsDeleted)
                 .HasDefaultValue(false)
                 .HasColumnName("is_deleted");

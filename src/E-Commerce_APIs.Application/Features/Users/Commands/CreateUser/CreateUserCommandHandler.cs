@@ -15,13 +15,15 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Resul
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserRegistrationService _userRegistrationService;
     private readonly IPasswordHasher _passwordHasher;
+    private readonly IMapper _mapper;
 
 
-    public CreateUserCommandHandler(IUnitOfWork unitOfWork, IUserRegistrationService userRegistrationService, IPasswordHasher passwordHasher)
+    public CreateUserCommandHandler(IUnitOfWork unitOfWork, IUserRegistrationService userRegistrationService, IPasswordHasher passwordHasher, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _userRegistrationService = userRegistrationService;
         _passwordHasher = passwordHasher;
+        _mapper = mapper;
     }
     public async Task<Result<UserDto>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
@@ -44,18 +46,9 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Resul
             await _unitOfWork.SaveChangesAsync();
             await _unitOfWork.CommitTransactionAsync();
 
-            // return response
-            var result = new UserDto()
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Roles = new List<string> { request.Role },
-                IsVerified = user.IsVerified,
-                UserName = user.UserName,
-                PhoneNumber = user.PhoneNumber,
-            };
+            // return response using AutoMapper
+            var result = _mapper.Map<UserDto>(user);
+            result.Roles = new List<string> { request.Role };
 
             return Result<UserDto>.Success(result, $"Create User with Id:{user.Id} Successfully", 201);
 
